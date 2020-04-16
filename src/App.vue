@@ -1,10 +1,9 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <nav-bar></nav-bar>
+    <div class="container">
+      <router-view />
     </div>
-    <router-view />
   </div>
 </template>
 
@@ -29,4 +28,13 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+#nprogress .bar {
+  background: white !important;
+}
 </style>
+<script>
+import NavBar from './components/navigation/NavBar';
+export default {
+  components: { NavBar },
+};
+</script>
