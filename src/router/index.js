@@ -67,7 +67,9 @@ const router = new VueRouter({
 
 router.beforeEach((routeTo, routeFrom, next) => {
   nprogress.start();
-  firebase.auth().onAuthStateChanged(user => {
+  const currentUser = firebase.auth().currentUser;
+
+  const validateRoute = user => {
     const loggedIn = !!user;
     if (loggedIn) {
       store
@@ -89,7 +91,14 @@ router.beforeEach((routeTo, routeFrom, next) => {
 
     nprogress.done();
     next();
-  });
+  };
+
+  if (!currentUser) {
+    firebase.auth().onAuthStateChanged(validateRoute);
+    return;
+  }
+
+  validateRoute(currentUser);
 });
 
 export default router;
