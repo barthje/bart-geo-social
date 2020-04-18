@@ -44,9 +44,8 @@ export default {
     async login() {
       this.errorMessage = '';
       try {
-        userService.login(this.email, this.password).then(() => {
-          this.$router.push({ name: 'map' });
-        });
+        await userService.login(this.email, this.password);
+        this.$router.push({ name: 'map' });
       } catch (response) {
         this.errorMessage = response.message;
       }
