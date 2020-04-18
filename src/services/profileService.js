@@ -1,4 +1,6 @@
 import firebaseService from './firebaseService';
+import firebase from 'firebase/app';
+import 'firebase/functions';
 
 const profileCollection = firebaseService.firestore().collection('profiles');
 
@@ -12,6 +14,15 @@ export default {
     return await profileReference.get().then(doc => {
       return doc.data();
     });
+  },
+  async isUnique(slug) {
+    const response = await firebase
+      .functions()
+      .httpsCallable('isDisplayNameUnique')({
+      slug,
+    });
+
+    return response;
   },
   profileExistsWithField(field, value) {
     return profileCollection

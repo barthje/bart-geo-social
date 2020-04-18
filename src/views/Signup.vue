@@ -68,12 +68,9 @@ export default {
           }),
         };
 
-        const displayNameExists = await profileService.profileExistsWithField(
-          'slug',
-          profile.slug
-        );
+        const displayNameExists = await profileService.isUnique(profile.slug);
 
-        if (displayNameExists) {
+        if (!displayNameExists.data.unique) {
           this.errorMessage = `Display name ${profile.displayName} already exists, please choose another one.`;
           return;
         }
