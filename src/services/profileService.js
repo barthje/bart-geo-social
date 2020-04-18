@@ -41,14 +41,17 @@ export default {
       });
   },
   getProfile(uid) {
+    return this.getProfileByField('uid', uid);
+  },
+  list() {
+    return profileCollection.orderBy('slug', 'desc');
+  },
+  getProfileByField(field, value) {
     return profileCollection
-      .where('uid', '==', uid)
+      .where(field, '==', value)
       .get()
       .then(snapshot => {
         return snapshot.docs[0].data();
       });
-  },
-  list() {
-    return profileCollection.orderBy('slug', 'desc');
   },
 };

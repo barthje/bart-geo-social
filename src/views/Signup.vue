@@ -63,7 +63,9 @@ export default {
       try {
         const profile = {
           displayName: this.displayName,
-          slug: slugify(this.displayName),
+          slug: slugify(this.displayName, {
+            lower: true,
+          }),
         };
 
         const displayNameExists = await profileService.profileExistsWithField(

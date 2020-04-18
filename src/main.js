@@ -4,6 +4,9 @@ import router from './router';
 import store from './store';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import 'nprogress/nprogress.css';
+import DateFilter from './filter/date';
+
+Vue.filter('date', DateFilter);
 
 Vue.config.productionTip = false;
 Vue.use(VueGoogleMaps, {

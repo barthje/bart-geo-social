@@ -20,16 +20,8 @@
       :key="index"
       :position="userProfile.geolocation"
       :draggable="true"
-      @click="toggleInfoWindow(userProfile, index)"
-    >
-    </GmapMarker>
-    <gmap-info-window
-      :options="infoOptions"
-      :position="infoWindowCoordinates"
-      :opened="isInfoWindowOpen"
-      @closeclick="isInfoWindowOpen = false"
-    >
-    </gmap-info-window>
+      @click="goToProfile(userProfile.slug)"
+    />
   </GmapMap>
 </template>
 
@@ -64,17 +56,8 @@ export default {
     ...mapState('profile', ['profiles', 'profile']),
   },
   methods: {
-    toggleInfoWindow(profile, index) {
-      this.infoWindowCoordinates = profile.geolocation;
-      this.infoOptions.content = profile.slug;
-
-      if (this.currentMarkerIndexOpen === index) {
-        this.isInfoWindowOpen = !this.isInfoWindowOpen;
-        return;
-      }
-
-      this.isInfoWindowOpen = true;
-      this.currentMarkerIndexOpen = index;
+    goToProfile(slug) {
+      this.$router.push({ name: 'profile', params: { slug } });
     },
     setMarkers() {
       this.$store.dispatch('profile/getProfiles');
