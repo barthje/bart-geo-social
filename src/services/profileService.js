@@ -16,13 +16,9 @@ export default {
     });
   },
   async isUnique(slug) {
-    const response = await firebase
-      .functions()
-      .httpsCallable('isDisplayNameUnique')({
+    return await firebase.functions().httpsCallable('isDisplayNameUnique')({
       slug,
     });
-
-    return response;
   },
   profileExistsWithField(field, value) {
     return profileCollection
